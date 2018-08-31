@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="js/echarts.min.js"></script>
+</head>
+
+<body>
+  <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+  <div id="main" style="width: 500px;height:500px; border: 1px solid red"></div>
+
+  <script>
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    option = {
+      title: {
+        text: '世界人口总量',
+        subtext: '数据来自网络'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['2011年', '2012年', '2013年']
+      },
+      toolbox: {
+        show: true,
+        feature: {
+          mark: { show: true },
+          dataView: { show: true, readOnly: false },
+          magicType: { show: true, type: ['line', 'bar'] },
+          restore: { show: true },
+          saveAsImage: { show: true }
+        }
+      },
+      calculable: true,
+      xAxis: [
+        {
+          type: 'value',
+          boundaryGap: [0, 0.01]
+        }
+      ],
+      yAxis: [
+        {
+          type: 'category',
+          data: ['巴西', '印尼', '美国', '印度', '中国', '世界人口(万)']
+        }
+      ],
+      series: [
+        {
+          name: '2011年',
+          type: 'bar',
+          label: {
+            normal: {
+              show: true,
+              position: ['45%','40%'],
+              color:'rgba(0,0,0,.7)'
+            }
+          },
+          data: [0, 2341, 390341, 404970, 531744, 630230],
+          itemStyle: {
+            normal: {
+              color: function (params) {
+                // build a color map as your need.
+                console.log(params)
+                var colorList = ["#f499a8", "#f294a4", "#fa6c7e", "#f83a5d", "#f22845",'#f40']; //"#f22845","#f83a5d","#fa6c7e","#f294a4","#f499a8"//
+                return colorList[params.dataIndex]
+              }
+            }
+          }
+        },
+        // {
+        //   name: '2012年',
+        //   type: 'bar',
+        //   data: [282031, 334891, 490341, 504970, 631744, 730230]
+        // }
+      ]
+    };
+
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+  </script>
+</body>
+
+</html>
